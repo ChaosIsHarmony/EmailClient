@@ -1,0 +1,15 @@
+def sign_in(username: str, password: str) -> None
+
+def log_out() -> None
+
+''' Fetches all emails flagged with /unseen '''
+def fetch_unread_email() -> List[Email]
+
+''' Save to HD. '''
+def save_email(uid: int) -> None
+
+def delete_email(uid: int) -> None
+
+def search(keywords: List[str]) -> List[Email]
+
+def send_email(email_address: str, email_body: str) -> None
