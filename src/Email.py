@@ -1,3 +1,5 @@
+from typing import List
+
 class Email():
     '''
     Defines the viewable and editable contents of an email.
@@ -25,6 +27,13 @@ class Email():
     def get_sender(self) -> str:
         return self.sender
 
+
+    def set_recipients(self, recipients: List[str]) -> None:
+        self.recipients = recipients
+
+
+    def get_recipients(self) -> List[str]:
+        return self.recipients
 
     def set_body(self, body: str) -> None:
         self.body = body
