@@ -1,27 +1,22 @@
-import quopri
+import email
 
-from . import Email
+from .EmailMessage import EmailMessage
 
-def parse_raw_message(raw_msg: dict) -> Email:
+def parse_raw_message(raw_msg: dict) -> EmailMessage:
     try:
-        #  content = raw_msg[b"BODY[]"].decode("utf-8")
-        content = quopri.decodestring(raw_msg[b"BODY[]"])
-        content = content.decode("windows-1251")
-    except:
-        pass
+        content = email.message_from_bytes(raw_msg[b"BODY[]"])
+    except Exception as e:
+        print(f"Error: {e}")
 
-    #  print(content)
-    start = content.find("From:")
-    end = content.find("Content-Type: text/html")
+    #  for key in content.keys():
+        #  print(key)
+        #  print(content[key]+"\n\n")
 
-    content = content[start:end].strip()
+    msg = EmailMessage()
+    msg.set_date(content["Date"])
+    msg.set_sender(content["From"])
+    msg.set_subject(content["Subject"])
+    msg.set_body(content.get_payload())
+    print(msg)
 
-    start = content.find("Date:")
-    end = content.find('\n', start)
-    print(start)
-    print(end)
-    timestamp = content[start:end]
-
-    #  print(message)
-    print(timestamp)
-    return None
+    return msg

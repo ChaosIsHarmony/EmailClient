@@ -1,7 +1,7 @@
 from datetime import date, datetime
 import os
 
-from .Email import Email
+from .EmailMessage import EmailMessage
 from .ReceivingEmail import ReceivingEmail
 from .SendingEmail import SendingEmail
 
@@ -11,8 +11,12 @@ creds_file = os.path.abspath(os.path.realpath(creds_file))
 
 
 def receive_email(username: str, password: str) -> None:
-    pass
-
+    receiveEmail = ReceivingEmail()
+    status = receiveEmail.connect(username, password)
+    print(status)
+    raw_msg = receiveEmail.fetch_unseen()
+    print(raw_msg)
+    receiveEmail.disconnect()
 
 
 def send_email(username: str, password: str) -> None:
@@ -40,6 +44,8 @@ if __name__ == "__main__":
         except:
             print("Invalid selection.")
 
-    if use == 2:
+    if use == 1:
+        receive_email(username, password)
+    elif use == 2:
         send_email(username, password)
 

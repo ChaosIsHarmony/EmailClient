@@ -1,6 +1,6 @@
 from typing import List
 
-class Email():
+class EmailMessage():
     '''
     Defines the viewable and editable contents of an email.
     '''
@@ -12,12 +12,20 @@ class Email():
         return self.uid
 
 
-    def set_title(self, title: str) -> None:
-        self.title = title
+    def set_date(self, date: str) -> None:
+        self.date = date
 
 
-    def get_title(self) -> str:
-        return self.title
+    def get_date(self) -> str:
+        return self.date
+
+
+    def set_subject(self, subject: str) -> None:
+        self.subject = subject
+
+
+    def get_subject(self) -> str:
+        return self.subject
 
 
     def set_sender(self, sender: str) -> None:
@@ -44,7 +52,7 @@ class Email():
 
 
     def __repr__(self) -> str:
-        email = self.title + "\n\n"
+        email = self.subject + "\n\n"
         email += self.sender + "\n\n"
         email += self.body
         return email
