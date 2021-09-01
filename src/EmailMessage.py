@@ -51,8 +51,12 @@ class EmailMessage():
         return self.body
 
 
+    def get_summary(self) -> str:
+        return str(self.uid) + " | " + self.sender + " | " + self.subject
+
     def __repr__(self) -> str:
-        email = self.subject + "\n\n"
+        email = str(self.uid) + "\n\n"
+        email += self.subject + "\n\n"
         email += self.sender + "\n\n"
         email += self.body
         return email

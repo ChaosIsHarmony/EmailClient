@@ -12,10 +12,34 @@ creds_file = os.path.abspath(os.path.realpath(creds_file))
 
 def receive_email(username: str, password: str) -> None:
     receiveEmail = ReceivingEmail()
+    # login
     status = receiveEmail.connect(username, password)
     print(status)
-    raw_msg = receiveEmail.fetch_unseen()
-    print(raw_msg)
+    # fetch & display summary of unread emails
+    emails = receiveEmail.fetch_unseen()
+    for email in emails:
+        print(email.get_summary())
+
+    while True:
+        try:
+            action = int(input("Select Action:\n\n\t1. Display available email UIDS\n\t2. Read\n\t3. Delete\n\t4. Quit\n"))
+        except:
+            print("Invalid input.")
+            continue
+
+        if action == 1:
+            for email in emails:
+                print(email.get_summary())
+        elif action == 2:
+            receiveEmail.read_email()
+        elif action == 3:
+            receiveEmail.delete_email()
+        elif action == 4:
+            break
+        else:
+            print("Invalid input.")
+
+    # logout
     receiveEmail.disconnect()
 
 
